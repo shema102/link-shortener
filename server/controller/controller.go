@@ -35,13 +35,7 @@ func CreateShortUrl(c *gin.Context, store *store.Store) {
 		return
 	}
 
-	var host string
-
-	if os.Getenv("PORT") == "" {
-		host = os.Getenv("HOST")
-	} else {
-		host = os.Getenv("HOST") + ":" + os.Getenv("PORT")
-	}
+	host := os.Getenv("HOST")
 
 	c.JSON(http.StatusOK, gin.H{"shortUrl": host + "/" + shortUrl})
 }

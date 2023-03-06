@@ -10,10 +10,12 @@ import (
 	"os"
 )
 
+const defaultPort = ":8080"
+
 func main() {
 	env := os.Getenv("ENV")
 
-	if env != "production" {
+	if env != "prod" {
 		envError := godotenv.Load()
 		if envError != nil {
 			log.Fatal("Error loading .env file")
@@ -41,6 +43,10 @@ func main() {
 	})
 
 	ginPort := ":" + os.Getenv("PORT")
+
+	if ginPort == ":" {
+		ginPort = defaultPort
+	}
 
 	ginError := engine.Run(ginPort)
 	if ginError != nil {
