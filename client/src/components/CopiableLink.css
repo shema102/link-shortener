@@ -1,0 +1,23 @@
+.link {
+    opacity: 1;
+}
+
+.link.link-animated {
+    animation: blink 1s ease;
+}
+
+
+@keyframes blink {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.press-to-copy {
+    font-size:  0.8rem;
+    font-weight: normal;
+}

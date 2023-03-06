@@ -30,7 +30,7 @@ func main() {
 		})
 	})
 
-	engine.POST("/shorten", func(c *gin.Context) {
+	engine.POST("/api/shorten", func(c *gin.Context) {
 		controller.CreateShortUrl(c, storeService)
 	})
 
