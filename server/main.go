@@ -11,9 +11,13 @@ import (
 )
 
 func main() {
-	envError := godotenv.Load()
-	if envError != nil {
-		log.Fatal("Error loading .env file")
+	env := os.Getenv("ENV")
+
+	if env != "production" {
+		envError := godotenv.Load()
+		if envError != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
 
 	redisHost := os.Getenv("REDIS_HOST")
@@ -24,11 +28,9 @@ func main() {
 
 	engine := gin.Default()
 
-	engine.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Here will be the home page",
-		})
-	})
+	engine.StaticFile("/", "../client/dist/index.html")
+	engine.StaticFile("/favicon.svg", "../client/dist/favicon.svg")
+	engine.Static("/assets", "../client/dist/assets")
 
 	engine.POST("/api/shorten", func(c *gin.Context) {
 		controller.CreateShortUrl(c, storeService)
